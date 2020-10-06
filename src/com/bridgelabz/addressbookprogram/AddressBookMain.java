@@ -146,7 +146,7 @@ public class AddressBookMain {
     private void searchPersonByCityUsinghashmap(String stateName) {
         for (Map.Entry<String, AddressBook> entry : bookList.entrySet()) {
             AddressBook value = entry.getValue();
-           ArrayList<Contact> contacts = value.ContactByState.entrySet().stream().filter(p -> p.getKey().equals(stateName)).map(Map.Entry::getValue).findFirst().orElse(null);
+           ArrayList<Contact> contacts = value.ContactByState.entrySet().stream().filter(findState -> findState.getKey().equals(stateName)).map(Map.Entry::getValue).findFirst().orElse(null);
             for(Contact contact: contacts){
                 System.out.println("First Name: "+contact.getFirst_name()+" Last Name: "+ contact.getLast_name());
             }
@@ -155,7 +155,7 @@ public class AddressBookMain {
     private void searchPersonByStateUsinHashMap(String cityName) {
         for (Map.Entry<String, AddressBook> entry : bookList.entrySet()) {
             AddressBook value = entry.getValue();
-            ArrayList<Contact> contacts = value.ContactByCity.entrySet().stream().filter(p -> p.getKey().equals(cityName)).map(Map.Entry::getValue).findFirst().orElse(null);
+            ArrayList<Contact> contacts = value.ContactByCity.entrySet().stream().filter(findCity -> findCity.getKey().equals(cityName)).map(Map.Entry::getValue).findFirst().orElse(null);
             for(Contact contact: contacts){
                 System.out.println("First Name: "+contact.getFirst_name()+" Last Name: "+ contact.getLast_name());
             }

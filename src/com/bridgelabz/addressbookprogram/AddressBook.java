@@ -183,7 +183,7 @@ public class AddressBook {
     }
 
     public void getPersonNameByState(String State) {
-        List<Contact> list  = contactList.stream().filter(p ->p.getCity().equals(State)).collect(Collectors.toList());
+        List<Contact> list  = contactList.stream().filter(findState ->findState.getCity().equals(State)).collect(Collectors.toList());
         for(Contact contact: list){
             System.out.println("First Name: "+contact.getFirst_name());
             System.out.println("Last Name: "+contact.getLast_name());
@@ -192,7 +192,7 @@ public class AddressBook {
     }
 
     public void getPersonNameByCity(String cityName) {
-        List<Contact> list  = contactList.stream().filter(p ->p.getCity().equals(cityName)).collect(Collectors.toList());
+        List<Contact> list  = contactList.stream().filter(city ->city.getCity().equals(cityName)).collect(Collectors.toList());
         for(Contact contact: list){
             System.out.println("First Name: "+contact.getFirst_name());
             System.out.println("Last Name: "+contact.getLast_name());
