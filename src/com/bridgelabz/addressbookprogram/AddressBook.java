@@ -1,15 +1,21 @@
 package com.bridgelabz.addressbookprogram;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class AddressBook {
 
     static Scanner sc = new Scanner(System.in);
 
-    ArrayList<Contact> contactList = new ArrayList<Contact>();
+    ArrayList<Contact> contactList;
+    public Map<String,ArrayList<Contact>> ContactByState;
+    public Map<String,ArrayList<Contact>> ContactByCity;
+
+    public AddressBook() {
+        contactList = new ArrayList<>();
+        ContactByState = new HashMap<>();
+        ContactByCity = new HashMap<>();
+    }
 
     public void setList(ArrayList<Contact> list)
     {
@@ -54,6 +60,15 @@ public class AddressBook {
 
         contactList.add(contactObj);
 
+        if(!ContactByState.containsKey(state)){
+            ContactByState.put(state,new ArrayList<Contact>());
+        }
+        ContactByState.get(state).add(contactObj);
+
+        if(!ContactByCity.containsKey(city)){
+            ContactByCity.put(city,new ArrayList<>());
+        }
+        ContactByCity.get(city).add(contactObj);
 
         return contactList;
     }
