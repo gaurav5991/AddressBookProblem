@@ -1,14 +1,19 @@
 package com.bridgelabz.addressbookprogram;
 
 import javax.sound.midi.Soundbank;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AddressBookMain {
 
-    static Scanner sc = new Scanner(System.in);
-    public Map<String,AddressBook> bookList = new HashMap<>();
+    static Scanner scanner = new Scanner(System.in);
+    static public Map<String,AddressBook> bookList = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -29,13 +34,15 @@ public class AddressBookMain {
             System.out.println("10.Sort Contact By City");
             System.out.println("11.Sort Contact By State");
             System.out.println("12.Sort Contact By Zip Code");
-            System.out.println("13.Exit");
+            System.out.println("13.Write Address Book to file");
+            System.out.println("14.Read Address Book from file");
+            System.out.println("15.Exit");
             System.out.println("Enter choice: ");
-            int option = sc.nextInt();
+            int option = scanner.nextInt();
             switch (option){
                 case 1: {
                     System.out.println("Enter the Name of Address Book: ");
-                    String bookName = sc.next();
+                    String bookName = scanner.next();
                     if(addBookMain.bookList.containsKey(bookName)){
                         System.out.println("The Address book Already Exists");
                         break;
@@ -53,37 +60,37 @@ public class AddressBookMain {
                 }
                 case 3:{
                     System.out.println("Enter Name of City: ");
-                    String CityName = sc.next();
+                    String CityName = scanner.next();
                    addBookMain.searchPersonByCity(CityName);
                     break;
                 }
                 case 4:{
                     System.out.println("Enter Name of State: ");
-                    String StateName = sc.next();
+                    String StateName = scanner.next();
                     addBookMain.searchPersonByState(StateName);
                     break;
                 }
                 case 5:{
                     System.out.println("Enter Name of State: ");
-                    String StateName = sc.next();
+                    String StateName = scanner.next();
                     addBookMain.searchPersonByCityUsinghashmap(StateName);
                     break;
                 }
                 case 6:{
                     System.out.println("Enter Name of City: ");
-                    String CityName = sc.next();
+                    String CityName = scanner.next();
                     addBookMain.searchPersonByStateUsinHashMap(CityName);
                     break;
                 }
                 case 7:{
                     System.out.println("Enter Name of State: ");
-                    String StateName = sc.next();
+                    String StateName = scanner.next();
                     addBookMain.CountByState(StateName);
                     break;
                 }
                 case 8:{
                     System.out.println("Enter Name of City: ");
-                    String CityName = sc.next();
+                    String CityName = scanner.next();
                     addBookMain.CountByCity(CityName);
                     break;
                 }
@@ -104,6 +111,30 @@ public class AddressBookMain {
                     break;
                 }
                 case 13:{
+                    System.out.println("Enter the name of address Book to write");
+                    String BookName = scanner.next();
+                    AddressBook book = bookList.get(BookName);
+                    System.out.println("Writing to file");
+                    try {
+                        book.writeAddressBook(BookName);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                case 14:{
+                    System.out.println("Enter the name of address Book to read");
+                    String addressBookName = scanner.next();
+                    AddressBook book = bookList.get(addressBookName);
+                    System.out.println("Reading from file");
+                    try {
+                        book.readAddressBook(addressBookName);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                case 15:{
                     flag = false;
                     break;
                 }
@@ -124,7 +155,7 @@ public class AddressBookMain {
 
             System.out.println("Enter Choice: ");
 
-            int option = sc.nextInt();
+            int option = scanner.nextInt();
 
             switch (option)
             {
@@ -134,7 +165,7 @@ public class AddressBookMain {
                 }
                 case 2: {
                     System.out.println("Enter the Person First name to edit details: ");
-                    String person_name = sc.next();
+                    String person_name = scanner.next();
                     boolean b = addBookObj.editContact(person_name);
                     if (b) {
                         System.out.println("Details Updated");
@@ -145,7 +176,7 @@ public class AddressBookMain {
                 }
                 case 3: {
                     System.out.println("Enter the Contact to be deleted:");
-                    String Name = sc.next();
+                    String Name = scanner.next();
                     boolean b1 = addBookObj.deleteContact(Name);
                     if (b1) {
                         System.out.println("Details Deleted");
